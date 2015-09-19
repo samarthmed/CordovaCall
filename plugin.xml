@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="io.samarthmed.plugin.cordovacall"
+      version="0.1.1">
+    <name>CordovaCall</name>
+    <description>A call Utility for cordova</description>
+    <license>MIT</license>
+    <keywords>phonegap,calendar, phone, call, phone-call</keywords>
+
+
+    <js-module src="www/CordovaCall.js" name="CordovaCall">
+        <clobbers target="window.CordovaCall" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CordovaCall">
+                <param name="android-package" value="io.samarthmed.CordovaCall.CordovaCall" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+        </config-file>
+
+        <source-file src="src/android/CordovaCall.java" target-dir="src/io/samarthmed/CordovaCall" />
+     </platform>
+</plugin>
