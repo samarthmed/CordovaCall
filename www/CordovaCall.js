@@ -1,12 +1,19 @@
 var CordovaCall = {
-    getCallState: function (successCallback, errorCallback) {
-        errorCallback = errorCallback || this.errorCallback;
-        cordova.exec(successCallback, errorCallback, 'CordovaCall', 'getCallState', []);
-    },
+  getCallState: function(successCallback, errorCallback) {
+    errorCallback = errorCallback || this.errorCallback;
+    cordova.exec(successCallback, errorCallback, 'CordovaCall', 'getCallState', []);
+  },
 
-    errorCallback: function() {
-        console.log("WARNING: CordovaCall errorCallback not implemented");
-    }
+  toggleMicState: function(successCallback, errorCallback) {
+    console.log("CORDOVACALL plugin toggleMicState");
+    errorCallback = errorCallback || this.errorCallback;
+    cordova.exec(successCallback, errorCallback, 'CordovaCall', 'toggleMicState', []);
+  },
+
+  errorCallback: function() {
+    console.log("WARNING: CordovaCall errorCallback not implemented");
+  }
+
 };
 
 module.exports = CordovaCall;

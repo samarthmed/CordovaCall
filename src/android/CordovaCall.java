@@ -2,6 +2,7 @@ package io.samarthmed.CordovaCall;
 
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
@@ -27,16 +28,40 @@ public class CordovaCall extends CordovaPlugin {
         }
     }
 
+    private void toggleMicState (CallbackContext callbackContext) {
+
+        AudioManager AudioMgr = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
+
+        Boolean isMute = AudioMgr.isMicrophoneMute();
+
+        String msg = "Not done anything";
+
+        if (isMute) {
+            AudioMgr.setMicrophoneMute(false);
+            msg = "Not Mute";
+        } else {
+            AudioMgr.setMicrophoneMute(true);
+            msg = "Mute";
+        }
+
+        PluginResult result = new PluginResult(PluginResult.Status.OK, msg);
+        callbackContext.sendPluginResult(result);
+    }
 
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext)
             throws JSONException {
+
+        LOG.d("CordovaCall", "Java code called");
 
         if (action.equals("getCallState")) {
             LOG.d("CordovaCall", "CORDOVA ACTION CALLED" + action);
             prepareListener();
             listener.setCallbackContext(callbackContext);
             return true;
-            // Do something here
+        } else if (action.equals("toggleMicState")) {
+            LOG.d("CordovaCall", "CORDOVA ACTION CALLED" + action);
+            toggleMicState(callbackContext);
+            return true;
         } else {
             return false;
         }
@@ -76,13 +101,5 @@ public class CordovaCall extends CordovaPlugin {
 
             callbackContext.sendPluginResult(result);
         }
-
-
-
     }
-
-
-
-
-
 }
