@@ -2,7 +2,9 @@ package io.samarthmed.CordovaCall;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
@@ -48,6 +50,13 @@ public class CordovaCall extends CordovaPlugin {
         callbackContext.sendPluginResult(result);
     }
 
+    private void callNumber(String number) {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+
+        intent.setData(Uri.parse("tel:" + number));
+        cordova.getActivity().startActivity(intent);
+    }
+
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext)
             throws JSONException {
 
@@ -61,6 +70,11 @@ public class CordovaCall extends CordovaPlugin {
         } else if (action.equals("toggleMicState")) {
             LOG.d("CordovaCall", "CORDOVA ACTION CALLED" + action);
             toggleMicState(callbackContext);
+            return true;
+        } else if (action.equals("makeCall")) {
+            LOG.d("CordovaCall", "CORDOVA ACTION CALLED" + action);
+            String number = (String) args.get(0);
+            callNumber(number);
             return true;
         } else {
             return false;

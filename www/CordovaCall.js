@@ -10,6 +10,12 @@ var CordovaCall = {
     cordova.exec(successCallback, errorCallback, 'CordovaCall', 'toggleMicState', []);
   },
 
+  makeCall: function (number, successCallback, errorCallback) {
+    console.log("CORDOVACALL make call");
+    errorCallback = errorCallback || this.errorCallback;
+    cordova.exec(null, errorCallback, 'CordovaCall', 'makeCall', [number]);
+  },
+
   errorCallback: function() {
     console.log("WARNING: CordovaCall errorCallback not implemented");
   }

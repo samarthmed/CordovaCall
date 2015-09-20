@@ -23,7 +23,8 @@
 
         <config-file target="AndroidManifest.xml" parent="/*">
           <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	  <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> 
+	  <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+	  <uses-permission android:name="android.permission.CALL_PHONE" />
         </config-file>
 
         <source-file src="src/android/CordovaCall.java" target-dir="src/io/samarthmed/CordovaCall" />
